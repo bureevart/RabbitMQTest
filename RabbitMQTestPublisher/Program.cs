@@ -1,4 +1,5 @@
 using System.Text.Json.Serialization;
+using MassTransit;
 using RabbitMQTestPublisher.Options;
 using RabbitMQTestPublisher.Services;
 using RabbitMQTestPublisher.Services.Interfaces;
@@ -16,8 +17,25 @@ builder.Services.AddControllers().AddJsonOptions(x =>
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.Configure<RabbitSettings>(builder.Configuration.GetSection("RabbitMQ"));
+
+var rabbitSettings = builder.Configuration.GetSection("RabbitMQ");
+var options = rabbitSettings.Get<RabbitSettings>();
+builder.Services.Configure<RabbitSettings>(rabbitSettings);
 builder.Services.AddScoped<IMessageService, MessageService>();
+
+builder.Services.AddOptions<RabbitMqTransportOptions>()
+    .Configure(o =>
+    {
+        o.Host = options.Server;
+        o.VHost = options.VirtualHost;
+        o.User = options.User;
+        o.Pass = options.Password;
+    });
+
+builder.Services.AddMassTransit(x =>
+{
+    x.UsingRabbitMq();
+});
 
 var app = builder.Build();
 
