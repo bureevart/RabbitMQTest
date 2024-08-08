@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RabbitMQTestPublisher", "RabbitMQTestPublisher\RabbitMQTestPublisher.csproj", "{CC24C9D4-1DD3-4DA7-AFB4-E4EFA389E253}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RabbitMQTestConsumer", "RabbitMQTestConsumer\RabbitMQTestConsumer.csproj", "{05963ED2-D15B-4D7B-9614-0D0DF1E2FD0A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CC24C9D4-1DD3-4DA7-AFB4-E4EFA389E253}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CC24C9D4-1DD3-4DA7-AFB4-E4EFA389E253}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CC24C9D4-1DD3-4DA7-AFB4-E4EFA389E253}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CC24C9D4-1DD3-4DA7-AFB4-E4EFA389E253}.Release|Any CPU.Build.0 = Release|Any CPU
+		{05963ED2-D15B-4D7B-9614-0D0DF1E2FD0A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{05963ED2-D15B-4D7B-9614-0D0DF1E2FD0A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{05963ED2-D15B-4D7B-9614-0D0DF1E2FD0A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{05963ED2-D15B-4D7B-9614-0D0DF1E2FD0A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
