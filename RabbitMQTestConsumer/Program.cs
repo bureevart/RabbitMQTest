@@ -1,4 +1,6 @@
+using System.Reflection;
 using System.Text.Json.Serialization;
+using MassTransit;
 using RabbitMQTestConsumer.HostedServices;
 using RabbitMQTestConsumer.Options;
 
@@ -9,9 +11,31 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Configuration
     .AddJsonFile("appsettings.json")
     .AddJsonFile("rabbit.json");
-builder.Services.Configure<RabbitSettings>(builder.Configuration.GetSection("RabbitMQ"));
-builder.Services.AddHostedService<ConsumerService>();
 
+var rabbitSettings = builder.Configuration.GetSection("RabbitMQ");
+var options = rabbitSettings.Get<RabbitSettings>();
+builder.Services.Configure<RabbitSettings>(rabbitSettings);
+
+//builder.Services.AddHostedService<ConsumerService>();
+
+builder.Services.AddOptions<RabbitMqTransportOptions>()
+    .Configure(o =>
+    {
+        o.Host = options.Server;
+        o.VHost = options.VirtualHost;
+        o.User = options.User;
+        o.Pass = options.Password;
+    });
+
+builder.Services.AddMassTransit(x =>
+{
+    var entryAssembly = Assembly.GetExecutingAssembly();
+    x.AddConsumers(entryAssembly);
+    x.UsingRabbitMq((context, cfg) =>
+    {
+        cfg.ConfigureEndpoints(context);
+    });
+});
 
 builder.Services.AddControllers().AddJsonOptions(x =>
     x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);

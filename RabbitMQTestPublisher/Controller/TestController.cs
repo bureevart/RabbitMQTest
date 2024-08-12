@@ -1,6 +1,8 @@
-﻿using Microsoft.AspNetCore.Http.HttpResults;
+﻿using MassTransit;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using RabbitMQTestPublisher.Services.Interfaces;
+using SharedClass;
 
 namespace RabbitMQTestPublisher.Controller;
 
@@ -9,18 +11,20 @@ namespace RabbitMQTestPublisher.Controller;
 public class TestController
 {
     private readonly IMessageService _messageService;
+    private readonly IPublishEndpoint _publishEndpoint;
     
-    public TestController(IMessageService messageService)
+    public TestController(IMessageService messageService, IPublishEndpoint publishEndpoint)
     {
         _messageService = messageService;
+        _publishEndpoint = publishEndpoint;
     }
     
-    [HttpGet]
+    [HttpPost]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    public async Task<ActionResult<int>> GetAll()
+    public async Task<ActionResult<int>> Send(RandomClass randomClass)
     {
-        _messageService.PublishMessage("Hello world");
-        
+        //_messageService.PublishMessage("Hello world");
+        await _publishEndpoint.Publish<RandomClass>(randomClass);
         return 1;
     }
 }

@@ -70,7 +70,8 @@ public class ConsumerService : BackgroundService
         consumer.Received += (sender, args) =>
         {
             _logger.LogInformation("Got new message!");
-            var str = Encoding.UTF8.GetString(args.Body.ToArray());
+            
+            //var str = Encoding.UTF8.GetString(args.Body.ToArray());
             _channel.BasicAck(args.DeliveryTag, false);
         };
         

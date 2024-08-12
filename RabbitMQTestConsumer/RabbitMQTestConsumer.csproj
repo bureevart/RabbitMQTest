@@ -7,9 +7,15 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <PackageReference Include="MassTransit" Version="8.2.4" />
+        <PackageReference Include="MassTransit.RabbitMQ" Version="8.2.4" />
         <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.6"/>
         <PackageReference Include="RabbitMQ.Client" Version="6.8.1" />
         <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0"/>
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\SharedClass\SharedClass.csproj" />
     </ItemGroup>
 
 </Project>
